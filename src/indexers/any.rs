@@ -77,6 +77,15 @@ impl AnyResolver {
         })
     }
 
+    /// Return an [`AnyResolver`] wrapping an [`super::ark::ArkResolver`].
+    #[cfg(feature = "ark")]
+    pub fn ark_blocking(network: ChainNet) -> Result<Self, String> {
+        Ok(AnyResolver {
+            inner: Box::new(super::ark::ArkResolver::new(network)),
+            consignment_txes: Default::default(),
+        })
+    }
+
     /// Add to the resolver the TXs found in the consignment bundles. Those TXs
     /// will not be resolved by an indexer and will be considered tentative.
     /// Use with caution, this could allow accepting a consignment containing TXs that have not
