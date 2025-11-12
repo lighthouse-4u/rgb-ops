@@ -28,4 +28,7 @@ pub mod electrum_blocking;
 #[cfg(feature = "mempool_blocking")]
 pub mod mempool_blocking;
 
+#[cfg(feature = "ark")]
+pub mod ark;
+
 pub use any::AnyResolver;
