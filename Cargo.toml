@@ -74,14 +74,20 @@ chrono = "0.4.38"
 indexmap = { workspace = true }
 serde_crate = { workspace = true, optional = true }
 rand = "0.9.1"
+# ark-core and ark-client will be added when the SDK is available
+# For MVP, we use in-memory tracking without actual SDK calls
+# ark-core = { git = "https://github.com/arkade-os/rust-sdk", tag = "v0.7.0", optional = true }
+# ark-client = { git = "https://github.com/arkade-os/rust-sdk", tag = "v0.7.0", default-features = false, optional = true }
+tokio = { version = "1.41", features = ["rt-multi-thread"], optional = true }
 
 [features]
 default = []
-all = ["esplora_blocking", "electrum_blocking", "mempool_blocking", "fs", "serde"]
+all = ["esplora_blocking", "electrum_blocking", "mempool_blocking", "fs", "serde", "ark"]
 esplora_blocking = ["bp-esplora", "bp-esplora/blocking", "bp-esplora/blocking-https"]
 esplora_blocking-wasm = ["bp-esplora", "bp-esplora/blocking-wasm"]
 electrum_blocking = ["bp-electrum"]
 mempool_blocking = ["esplora_blocking"]
+ark = ["tokio"]
 serde = [
     "serde_crate",
     "chrono/serde",
